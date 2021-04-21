@@ -1,0 +1,230 @@
+#intro -> labs-> Time_machine -> year2019-> Ending
+"""
+@author: Brian Kurniawan MSBA2020
+"""
+
+"""
+INTRODUCTION:
+This game was inspired by the current situation we are facing in 2019-2020.
+It has a total of 1 introduction and 3 main parts that require the user's input to 
+determine the end goal. The user will have the opportunity to cure COVID-19 by taveling back to the past.
+
+Intro           : User will be required to enter their username 
+Labs/Laboratory : User will have the option to take the time machine or stay in 2025
+Time Machine    : Inside the time machine to travel back to the past
+Year 2019       : Year 2019, time travel is successful
+Ending          : Travel back to 2025/current year
+"""
+
+from sys import exit
+import random
+
+#INTRO : Please enter your username to begin the game!
+def intro():
+    user_name = input (prompt =
+    """
+    In the year 2025, a mad scientist name Morty invented a time machine.
+    He would like to invite you to be part of his journey.
+    Hope you are ready to experience something completely new!
+    This game will require you to make a very interesting and wise choice!
+    But we are here to have fun, so dont worry about the results.
+
+    Please enter your name """)
+    
+    print(f"""
+    Morty said : Hello {user_name}!
+    Thank you being part of this journey.      
+    """)
+    input('<Press enter to continue>')
+
+    print("""First of all, I guess you heard the rumor spreading around about the time machine.
+    Well its not a secret anymore. I have a goal to end this dire situation in 2025. Please come to my lab.
+    Now you have entered Morty's Lab""")
+    
+    labs()    
+    
+#Stage Labs : First part of the main parts.You have reached Morty's lab
+    
+def labs():
+    year_1 = input(f"""
+            Morty said : 'are you ready to take the ride?'
+            A. Yes of course, take me now
+            B. Give me some time to think
+            C. I am not ready. This is very risky!
+            """)
+
+    if 'a' in year_1 or 'A' in year_1 or 'yes' in year_1 or 'now' in year_1:
+        print("Morty said: 'that is a very wise choice, please get in to the time machine'")
+        tmachine()
+
+    elif 'b' in year_1 or 'B' in year_1 or 'time' in year_1 or 'think' in year_1:
+        print("5 minutes later. What would you like to do?")
+        labs()
+        
+    elif 'c' in year_1 or 'C'in year_1 or 'not ready' in year_1:
+        print("Morty said : 'Well this is once in a lifetime opportunity, Im sorry I have to go by myself'")
+        fail()
+        
+    else:
+        print("invalid entry, try again")
+        labs()
+
+##User is heading to second main parts inside the time machine        
+def tmachine():
+    print("""
+            With this prototype machine, we are only able to travel exactly 6 years back.
+            Can you remind me what year again 6 years ago?Hint 2025 - 6.
+            Please enter the year in the time machine screen.
+            Be careful do not enter the wrong number or the machine will broke down.
+            """)
+    
+    number = 2019
+    guesses = 3
+
+
+    while guesses > 0:
+        choice = int(input('\n Please enter the year (Hint 2025 - 6)?\n> '))
+
+   
+        choice = int(choice)
+        
+
+        if choice == number:
+            print("\nGreat Job! That was easy, now lets travel back to 2019!")        
+            break
+            
+            year2019()
+
+        elif choice != number:
+            guesses -= 1        
+
+            if guesses > 0:
+                print(f"\nThink carefully!. You have {guesses} chances left.")
+
+      
+            elif guesses == 0:
+                print(f"\nYou are out of guesses. The number was {number}.")
+                print("SYSTEM ERROR! you have reached daily limit")
+                fail()
+                    
+            else:
+                print("Error - invalid entry")
+
+    
+    input("<Press enter to continue>\n")
+    year2019()
+    
+##After sucessfully operating the time machine. Now you are in 2019
+
+def year2019():
+    print(f"""
+    Morty said:
+    'In year 2019 everything looks different, but remember we have 
+    one important mission here. I hope you remember what happened in 2019 
+    that cause the dire situation in 2025, and we are here to fix it!
+    
+    We are right in front of Dr. Faucci office, he is the most important 
+    person in 2019. Lets go ahead and tell him everything we knew!'
+    
+    Right after both of you introduce yourself to Dr. Faucci, he is very curious
+    and going to ask you lot of questions.
+    """)
+    
+    
+    question_list = ['What is COVID-19 ',
+                     'What will happened at the end of 2019?',
+                     'How do we solve this issue?'
+                     'What else should I know?']
+                    
+    questions = 2
+    
+    while questions > 0:
+        question = random.choice(question_list)
+        input("<Press enter to continue>\n")
+        print(question)
+        print(" ")
+
+        if question == question_list[0]:
+            print("1) It is a . . . Well it is not that important")
+            print("2) I am not going to tell you")
+            print("3) It is an airborne disease that will target the respiratory system")
+            
+            covid = input("> \n")
+            
+            if covid == '3':
+                print("Faucci said : 'That is one very deadly disease.'")
+                questions -=1
+                
+            else:
+                print("I thought you are here to tell me something important?")
+                fail()
+            
+        elif question == question_list[1]:
+            print("1) Nothing happened, everything will be ok")
+            print("2) There will a deadly pandemic and we have to act quickly")
+            print("3) I forgot what happened.")
+            
+            quest = input("> \n")
+            
+            if quest == '2':
+                print("Faucci said :'Thanks for letting me know. Please tell me more.'\n")
+                questions -=1
+            
+            else: 
+                print("I guess I dont have time for this joke.")
+                fail()
+                  
+        elif question == question_list[2]:
+            print("1) There is nothing we can do. It is too late")
+            print("2) tell the public to social distancing, wear a mask, and maintain their health-well being")
+                  
+            solution = input("> \n")
+                  
+            if solution == '2':
+                print("Faucci :Yes I agree, we should start doing that,\n")
+                questions -=1
+             
+            else: 
+                print("Faucci : are you sure? I dont trust you. You better leave my office because I have something better to do")
+                fail()
+                
+        elif question == question_list[3]:
+            print("1) I dont have anything to say, I'm here to just say Hi!")
+            print("2) Here is the vaccine that was invented in 2025, please create more of this asap")
+            
+            vaccine = input("> \n")
+            
+            if vaccine == '2':
+                print("Faucci : Awesome, I will bring this to the lab now!")
+                questions -=1
+                
+            else:
+                print("Faucci : Please get out of my room now!")
+                (fail)
+                break
+                
+    print("you have explained everything to Dr. Faucci\n")
+    print("lets get out of his office now!")
+    ending()
+            
+###last stage of the game            
+def ending():
+    print("""
+    Morty said :" I am so proud of you, but we dont have a lot of time to hang around, 
+                We have to go back to the time machine")
+    
+    Everything in 2025 has drastically changed since {user_name} was successfully inform the 
+    science expert about COVID-19 before it becomes a deadly pandemic.
+    
+    There is no outbreak recorded in the United States and scientist has a vaccine available for everyone.
+    FIN~
+    """)
+    
+    input("<Press enter to exit>\n")
+    exit(0)
+    
+def fail():
+    print('\nYou have failed to cure the COVID-19, unfortunately everything will remain the same in 2025')
+    exit(0)
+          
+intro()
